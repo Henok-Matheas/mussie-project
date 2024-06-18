@@ -4,7 +4,6 @@ import { config } from "../../config";
 import { ForbiddenError } from "../core/ApiError";
 import { AuthFailureResponse } from "../core/ApiResponse";
 import { handleErrorResponse } from "../helpers/errorHandle";
-import { User } from "../resources/user/user.model";
 
 export async function authenticate(req: Request, res: Response, next: NextFunction) {
   const authHeader = req.headers["authorization"];
@@ -13,9 +12,7 @@ export async function authenticate(req: Request, res: Response, next: NextFuncti
   if (token !== undefined) {
     try {
       const payload = JWT.verify(token, config.jwt.secret);
-      const _id = JSON.parse(JSON.stringify(payload));
-
-      const user = await User.findById(_id);
+      const user = JSON.parse(JSON.stringify(payload));
 
       if (!user) {
         return res.status(403).json({ message: "User does not exist." });

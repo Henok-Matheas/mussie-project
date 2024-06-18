@@ -13,7 +13,7 @@ projectRouter
 projectRouter
     .route("/:id")
     .get(ProjectController.getProjectById)
-    .put(authenticate, permit(UserRole.admin), ProjectController.updateProject)
+    .patch(authenticate, permit(UserRole.admin), ProjectController.updateProject)
     .delete(authenticate, permit(UserRole.admin), ProjectController.deleteProject);
 
 export default projectRouter;

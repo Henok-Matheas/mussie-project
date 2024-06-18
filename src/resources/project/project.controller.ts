@@ -7,7 +7,7 @@ export default class ProjectController {
 
     static async createProject(req: Request, res: Response) {
         try {
-            const { created_by } = res.locals.user._id;
+            const created_by = res.locals.user._id;
 
             const { name, description, tech_stacks, specialization, duration, application_deadline, intake_number } = req.body;
 

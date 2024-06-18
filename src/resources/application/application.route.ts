@@ -15,7 +15,7 @@ applicationRouter
 applicationRouter
     .route("/:id")
     .get(authenticate, ApplicationController.getApplicationById)
-    .put(authenticate, ApplicationController.updateApplication)
+    .patch(authenticate, ApplicationController.updateApplication)
     .delete(authenticate, ApplicationController.deleteApplication);
 
 export default applicationRouter;

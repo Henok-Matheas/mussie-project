@@ -6,7 +6,9 @@ import { ApplicationService } from './application.service';
 export default class ApplicationController {
     static async createApplication(req: Request, res: Response) {
         try {
-            const { user_id, experience, bio, resume, project_id } = req.body;
+            const user_id = res.locals.user._id;
+
+            const { experience, bio, resume, project_id } = req.body;
 
             const application = await ApplicationService.createApplication({ user_id, experience, bio, resume, project_id });
 
