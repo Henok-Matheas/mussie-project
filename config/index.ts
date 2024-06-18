@@ -3,7 +3,7 @@ import dotenv from "dotenv";
 dotenv.config();
 
 export const config = {
-  port: (process.env.PORT as unknown as number) || 8000,
+  port: parseInt(process.env.PORT) || 8000,
   environment: process.env.ENVIRONMENT,
   db: {
     remote: process.env.DATABASE_URI || "",
