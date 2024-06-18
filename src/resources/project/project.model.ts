@@ -1,29 +1,44 @@
 import mongoose from "mongoose";
+
+
 export interface IProject {
-    url: string;
-    country: string;
-    start_year: number;
-    end_year: number;
+    created_by: mongoose.Types.ObjectId;
+    name: string;
+    description: string;
+    tech_stacks: string[];
+    specialization: string;
+    duration: number;
+    application_deadline: Date;
+    intake_number: number;
 }
 
 const ProjectSchema = new mongoose.Schema({
-    url: {
+    created_by: {
+        type: mongoose.Types.ObjectId,
+        required: true,
+    },
+    name: {
         type: String,
-        required: true
+        required: true,
     },
-    country: {
+    description: {
         type: String,
-        required: true
     },
-    start_year: {
-        type: Number,
-        required: true
+    tech_stacks: {
+        type: [String],
     },
-    end_year: {
+    specialization: {
+        type: String,
+    },
+    duration: {
         type: Number,
-        default: null
-    }
+    },
+    application_deadline: {
+        type: Date,
+    },
+    intake_number: {
+        type: Number,
+    },
 });
-
 
 export const ProjectModel = mongoose.model<IProject>("Project", ProjectSchema);

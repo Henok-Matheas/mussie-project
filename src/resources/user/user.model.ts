@@ -3,17 +3,16 @@ import mongoose, { Model } from "mongoose";
 import { UserRole } from "../../types/user";
 
 export interface IUserInterface {
-  firstName: String;
-  lastName: String;
-  email: String;
-  phoneNumber: String;
-  password: String;
-  role: String;
-  points: Number;
+  _id: mongoose.Types.ObjectId;
+  firstName: string;
+  lastName: string;
+  email: string;
+  password: string;
+  role: string;
 }
 interface userModel extends Model<IUserInterface> {
-  signup(firstName, lastName, email, phoneNUmber, password, role?): any;
-  login(email, password): any;
+  signup(firstName, lastName, email, password, role?): IUserInterface;
+  login(email, password): IUserInterface;
 }
 const userSchema = new mongoose.Schema({
   firstName: {
@@ -27,10 +26,6 @@ const userSchema = new mongoose.Schema({
     unique: true,
     required: true,
   },
-  phoneNUmber: {
-    type: String,
-  },
-
   password: {
     type: String,
     required: true
@@ -38,12 +33,8 @@ const userSchema = new mongoose.Schema({
   role: {
     type: String,
     required: true,
-    enum: [UserRole.user, UserRole.admin, UserRole.contributor],
+    enum: [UserRole.user, UserRole.admin],
     default: UserRole.user,
-  },
-  points: {
-    type: Number,
-    default: 0,
   },
 });
 
@@ -52,7 +43,6 @@ userSchema.statics.signup = async function (
   firstName,
   lastName,
   email,
-  phoneNumber,
   password,
   role = "user"
 ) {
@@ -69,7 +59,6 @@ userSchema.statics.signup = async function (
     firstName,
     lastName,
     email,
-    phoneNumber,
     password: hash,
     role,
   });

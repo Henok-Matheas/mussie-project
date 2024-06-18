@@ -8,8 +8,8 @@ import {
     NotFoundError,
 } from "./core/ApiError";
 import Logger from "./core/logger";
-import flagRouter from "./resources/flag/flag.route";
-import notificationRouter from "./resources/notification/notification.route";
+import applicationRouter from "./resources/application/application.route";
+import projectRouter from "./resources/project/project.route";
 import userRouter from "./resources/user/user.route";
 const app = express()
 
@@ -26,9 +26,9 @@ app.use(
 app.use(cors())
 
 
-app.use('/api', flagRouter)
-app.use('/api', userRouter)
-app.use('/api', notificationRouter)
+app.use('/api/applications', applicationRouter)
+app.use('/api/users', userRouter)
+app.use('/api/projects', projectRouter)
 
 
 app.get("/health", (req: Request, res: Response) => {
